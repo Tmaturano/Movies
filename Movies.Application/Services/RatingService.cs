@@ -15,6 +15,11 @@ public class RatingService : IRatingService
         _movieRepository = movieRepository;
     }
 
+    public async Task<bool> DeleteRatingAsync(Guid movieId, Guid userId, CancellationToken cancellationToken = default)
+    {
+        return await _ratingRepository.DeleteRatingAsync(movieId, userId, cancellationToken);
+    }
+
     public async Task<bool> RateMovieAsync(Guid movieId, int rating, Guid userId, CancellationToken cancellationToken = default)
     {
         if (rating is <= 0 or > 5)
