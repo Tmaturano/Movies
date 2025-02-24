@@ -13,6 +13,7 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<IMovieRepository, MovieRepository>();
         services.AddScoped<IRatingRepository, RatingRepository>();
         services.AddScoped<IMovieService, MovieService>();
+        services.AddScoped<IRatingService, RatingService>();
         services.AddValidatorsFromAssemblyContaining<IApplicationMarker>();
         
         return services;
