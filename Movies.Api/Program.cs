@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Movies.Api;
 using Movies.Api.Mapping;
 using Movies.Application;
 using Movies.Application.Database;
@@ -23,6 +24,12 @@ builder.Services.AddAuthentication(x =>
         ValidIssuer = config["Jwt:Issuer"],
         ValidAudience = config["Jwt:Audience"]
     };
+});
+
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy(AuthConstants.AdminUserPolicyName, 
+        p => p.RequireClaim(AuthConstants.AdminUserClaimName, "true"));
 });
 
 builder.Services.AddAuthorization();
