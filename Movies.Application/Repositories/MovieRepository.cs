@@ -64,7 +64,7 @@ public class MovieRepository : IMovieRepository
         using var connection = await _dbConnectionFactory.CreateConnectionAsync(cancellationToken);
 
         return await connection.ExecuteScalarAsync<bool>(new CommandDefinition("""
-            select count(1) from movies where id = @Id);
+            select count(1) from movies where id = @Id;
             """, new { Id = id }, cancellationToken: cancellationToken));
     }
 
