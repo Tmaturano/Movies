@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using Movies.Application.Models;
 using Movies.Application.Repositories;
-using Movies.Application.Validators;
 
 namespace Movies.Application.Services;
 
@@ -50,6 +49,11 @@ public class MovieService : IMovieService
     public async Task<Movie?> GetBySlugAsync(string slug, Guid? userId = default, CancellationToken cancellationToken = default)
     {
         return await _movieRepository.GetBySlugAsync(slug, userId, cancellationToken);
+    }
+
+    public async Task<int> GetCountAsync(string? title, int? yearOfRelease, CancellationToken cancellationToken = default)
+    {
+        return await _movieRepository.GetCountAsync(title, yearOfRelease, cancellationToken);
     }
 
     public async Task<Movie?> UpdateAsync(Movie movie, Guid? userId = default, CancellationToken cancellationToken = default)
