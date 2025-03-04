@@ -59,4 +59,19 @@ public static class ContractMapping
             Rating = rating.Rating
         });
     }
+
+    public static GetAllMoviesOptions MapToOptions(this GetAllMoviesRequest request)
+    {
+        return new GetAllMoviesOptions
+        {
+            Title = request.Title,
+            YearOfRelease = request.Year
+        };
+    }
+
+    public static GetAllMoviesOptions WIthUser(this GetAllMoviesOptions options, Guid? userId)
+    {
+        options.UserId = userId;
+        return options;
+    }
 }
