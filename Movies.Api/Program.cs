@@ -49,6 +49,19 @@ builder.Services.AddApiVersioning(x =>
 
 builder.Services.AddAuthorization();
 
+//builder.Services.AddResponseCaching();
+//Output cache is in Memory, be careful
+builder.Services.AddOutputCache(x => 
+{
+    x.AddBasePolicy(c => c.Cache());
+    x.AddPolicy("MovieCache", c =>    
+        c.Cache()
+            .Expire(TimeSpan.FromMinutes(1))
+            .SetVaryByQuery(["title", "year", "sortBy", "page", "pageSize"])
+            .Tag("movies")
+    );
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddHealthChecks()
@@ -74,6 +87,10 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+//app.UseCors();
+//app.UseResponseCaching(); //client based, the client control the cache
+app.UseOutputCache();
 
 app.UseMiddleware<ValidationMappingMiddleware>();
 app.MapControllers();
